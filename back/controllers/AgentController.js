@@ -14,7 +14,20 @@ const getAgents = (req, res) => {
 }
 
 const getAgent = (req, res) => {
-  res.send("Jett")
+  let id = Number(req.params.id)
+
+  prisma.agent
+    .findUnique({
+      where: {
+        id: id,
+      },
+    })
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((error) => {
+      res.json({ error: error.message })
+    })
 }
 
 const createAgent = (req, res) => {
