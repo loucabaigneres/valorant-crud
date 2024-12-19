@@ -1,31 +1,16 @@
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
+
 const getAgents = (req, res) => {
-  res.json([
-    "Brimstone",
-    "Phoenix",
-    "Sage",
-    "Sova",
-    "Viper",
-    "Cypher",
-    "Reyna",
-    "Killjoy",
-    "Breach",
-    "Omen",
-    "Jett",
-    "Raze",
-    "Skye",
-    "Yoru",
-    "Astra",
-    "KAY/O",
-    "Chamber",
-    "Neon",
-    "Fade",
-    "Harbor",
-    "Gekko",
-    "Deadlock",
-    "Iso",
-    "Clove",
-    "Vyse",
-  ])
+  prisma.agent
+    .findMany()
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((error) => {
+      res.json({ error: error.message })
+    })
 }
 
 const getAgent = (req, res) => {
