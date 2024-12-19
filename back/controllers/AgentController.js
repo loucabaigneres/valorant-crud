@@ -46,7 +46,22 @@ const createAgent = (req, res) => {
 }
 
 const updateAgent = (req, res) => {
-  res.send("Agent updated")
+  let id = Number(req.params.id)
+  let agent = req.body
+
+  prisma.agent
+    .update({
+      where: {
+        id: id,
+      },
+      data: agent,
+    })
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((error) => {
+      res.json({ error: error.message })
+    })
 }
 
 const deleteAgent = (req, res) => {
