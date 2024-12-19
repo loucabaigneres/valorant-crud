@@ -65,7 +65,20 @@ const updateAgent = (req, res) => {
 }
 
 const deleteAgent = (req, res) => {
-  res.send("Agent deleted")
+  let id = Number(req.params.id)
+
+  prisma.agent
+    .delete({
+      where: {
+        id: id,
+      },
+    })
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((error) => {
+      res.json({ error: error.message })
+    })
 }
 
 export { createAgent, deleteAgent, getAgent, getAgents, updateAgent }
