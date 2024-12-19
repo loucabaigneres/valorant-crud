@@ -31,7 +31,18 @@ const getAgent = (req, res) => {
 }
 
 const createAgent = (req, res) => {
-  res.send("Agent created")
+  let agent = req.body
+
+  prisma.agent
+    .create({
+      data: agent,
+    })
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((error) => {
+      res.json({ error: error.message })
+    })
 }
 
 const updateAgent = (req, res) => {
